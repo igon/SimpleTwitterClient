@@ -85,6 +85,10 @@ public class TimelineActivity extends Activity {
 		startActivityForResult(i,TWEET_CODE);
 	}
 	
+	public void refreshTweets(MenuItem item) {
+		populateTimeline();
+	}
+	
 	private class TweetTimelineRequestHandler extends JsonHttpResponseHandler {
 		@Override
 		public void onSuccess(JSONArray json) {
