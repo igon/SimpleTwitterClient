@@ -16,44 +16,13 @@ import android.widget.TextView;
 import com.codepath.apps.basictwitter.models.Tweet;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
-
 public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
-
-	public TweetArrayAdapter(Context context, int resource, List<Tweet> objects) {
+//public class TweetArrayAdapter extends GenericAdapter<Tweet> {
+		
+	public TweetArrayAdapter(Context context,int resource,List<Tweet> objects) {
 		super(context, resource, objects);
 	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		
-		Tweet tweet = getItem(position);
-		
-		View v; 
-		
-		if(convertView == null) {
-			LayoutInflater inflator = LayoutInflater.from(getContext());
-			v = inflator.inflate(R.layout.tweet_item, parent, false);
-		} else {
-			v = convertView; 
-		}
-		
-		ImageView ivProfileImage = (ImageView) v.findViewById(R.id.ivProfileImage);
-		TextView tvUserName = (TextView) v.findViewById(R.id.tvUserName);
-		TextView tvBody = (TextView) v.findViewById(R.id.tvBody);
-		TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
-		ivProfileImage.setImageResource(android.R.color.transparent);
-		
-		ImageLoader imageLoader = ImageLoader.getInstance();
-		imageLoader.displayImage(tweet.getUser().getProfileImageUrl(), ivProfileImage);
-		tvUserName.setText(tweet.getUser().getScreenName());
-		tvTime.setText(getRelativeTimeAgo(tweet.getCreatedAt()));
-		tvBody.setText(tweet.getBody());
 	
-		
-		return v;
-	}
-	
-	// getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
 	public String getRelativeTimeAgo(String rawJsonDate) {
 		String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
 		SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
@@ -70,6 +39,41 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		}
 	 
 		return relativeDate;
+	}
+	
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return getDataRow(position, convertView, parent);
+	}
+	
+	public View getDataRow(int position, View convertView, ViewGroup parent) {
+		Tweet tweet = getItem(position);
+
+		View v;
+
+		if (convertView == null) {
+			LayoutInflater inflator = LayoutInflater.from(getContext());
+			v = inflator.inflate(R.layout.tweet_item, parent, false);
+		} else {
+			v = convertView;
+		}
+
+		ImageView ivProfileImage = (ImageView) v
+				.findViewById(R.id.ivProfileImage);
+		TextView tvName = (TextView) v.findViewById(R.id.tvName);
+		TextView tvHandle = (TextView) v.findViewById(R.id.tvHandle);
+		TextView tvBody = (TextView) v.findViewById(R.id.tvBody);
+		TextView tvTime = (TextView) v.findViewById(R.id.tvTime);
+		ivProfileImage.setImageResource(android.R.color.transparent);
+
+		ImageLoader imageLoader = ImageLoader.getInstance();
+		imageLoader.displayImage(tweet.getUser().getProfileImageUrl(),
+				ivProfileImage);
+		tvHandle.setText("@"+tweet.getUser().getScreenName());
+		tvName.setText(tweet.getUser().getName());
+		tvTime.setText(getRelativeTimeAgo(tweet.getCreatedAt()));
+		tvBody.setText(tweet.getBody());
+
+		return v;
 	}
 	
 }

@@ -2,14 +2,18 @@ package com.codepath.apps.basictwitter;
 
 import java.util.List;
 
+import com.codepath.apps.basictwitter.models.Tweet;
+
 import android.app.Activity;
+import android.content.Context;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-public abstract class GenericAdapter<T> extends BaseAdapter {
+public abstract class GenericAdapter<T> extends ArrayAdapter<T> {
 
 	// the main data list to save loaded data
 	protected List<T> dataList;
@@ -26,8 +30,11 @@ public abstract class GenericAdapter<T> extends BaseAdapter {
 	public static final int VIEW_TYPE_LOADING = 0;
 	public static final int VIEW_TYPE_ACTIVITY = 1;
 
-	public GenericAdapter(Activity activity, List<T> list) {
-		mActivity = activity;
+
+	
+	public GenericAdapter(Context context, int resource, List<T> list) {
+		super(context,resource,list);
+		mActivity = (Activity) context;
 		dataList = list;
 	}
 
