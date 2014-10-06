@@ -4,9 +4,11 @@ import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
 
 import android.content.Context;
+import android.util.JsonReader;
 
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 /*
@@ -52,8 +54,22 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams(); 
 		params.put("status", tweet);
 		client.post(apiUrl,params, handler);
+	}
+
+
+	public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams(); 
+		params.put("since_id", "1");
+		client.get(apiUrl,params, handler);			
 	}	
 	
+	public void getMentionsTimeline(long max_id, AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams(); 
+		params.put("max_id", Long.toString(max_id));
+		client.get(apiUrl,params, handler);			
+	}	
 	
 	
 	// CHANGE THIS

@@ -1,10 +1,12 @@
 package com.codepath.apps.basictwitter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 import android.content.Context;
+import android.support.v4.app.FragmentActivity;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +24,16 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 	public TweetArrayAdapter(Context context,int resource,List<Tweet> objects) {
 		super(context, resource, objects);
 	}
-	
+
+
+
+	public TweetArrayAdapter(FragmentActivity activity, ArrayList<Tweet> tweets) {
+		// TODO Auto-generated constructor stub
+		super(activity,android.R.layout.simple_list_item_1,tweets);
+	}
+
+
+
 	public String getRelativeTimeAgo(String rawJsonDate) {
 		String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
 		SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
