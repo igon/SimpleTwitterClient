@@ -9,11 +9,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.codepath.apps.basictwitter.fragments.HomeTimelineFragment;
+import com.codepath.apps.basictwitter.fragments.MentionsTimelineFragment;
+import com.codepath.apps.basictwitter.fragments.TweetsListFragment;
 import com.codepath.apps.basictwitter.listeners.FragmentTabListener;
 import com.codepath.apps.basictwitter.models.Tweet;
-import com.codepath.apps.fragments.HomeTimelineFragment;
-import com.codepath.apps.fragments.MentionsTimelineFragment;
-import com.codepath.apps.fragments.TweetsListFragment;
 
 public class TimelineActivity extends FragmentActivity {
 	public final int TWEET_CODE = 20;
@@ -72,6 +72,11 @@ public class TimelineActivity extends FragmentActivity {
 			}
 		}
 	} 
+	
+	public void onProfileView(MenuItem mi) {
+		Intent i = new Intent(this,ProfileActivity.class);
+		startActivity(i);
+	}
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
