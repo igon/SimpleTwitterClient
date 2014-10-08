@@ -14,7 +14,7 @@ Updated 10/07/2014
  * [x] User can scroll to bottom of either of these lists and new tweets will load ("infinite scroll")
  * [x] User can navigate to view their own profile
  * [x] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
- * [ ] User can click on the profile image in any tweet to see another user's profile.
+ * [X] User can click on the profile image in any tweet to see another user's profile.
  * [x] User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
  * [x] Profile view should include that user's timeline
 
