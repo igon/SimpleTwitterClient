@@ -22,22 +22,22 @@ public class ProfileActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
 		String screen_name = getIntent().getStringExtra("screen_name");
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-		ft.replace(R.id.timeline_holder, UserTimelineFragment.newInstance(screen_name));
-		ft.commit();
-		//loadProfileInfo(screen_name);
+		boolean self = getIntent().getBooleanExtra("self", false);
+		
+		
+		if (self) {
+			loadProfileInfo();	
+		}else {
+			loadProfileInfo(screen_name);	
+		}
 	}
 	
 	public void loadProfileInfo(String screen_name) {
-		TwitterApplication.getRestClient().getUserInfo(screen_name, 
-				new JsonHttpResponseHandler() {
-					@Override
-					public void onSuccess(JSONObject json) {
-							User u = User.fromJson(json);
-							getActionBar().setTitle("@"+ u.getScreenName());
-							populateProfileHeader(u);
-					}
-		});
+		TwitterApplication.getRestClient().getUserInfo(screen_name, new UserInformationResponseHandler());
+	}
+
+	public void loadProfileInfo() {
+		TwitterApplication.getRestClient().getMyInfo(new UserInformationResponseHandler());
 	}
 	
 	private void populateProfileHeader(User user) {
@@ -53,6 +53,19 @@ public class ProfileActivity extends FragmentActivity {
 		tvFollowing.setText(user.getFriendsCount() + " Following");
 		ImageLoader.getInstance().displayImage(user.getProfileImageUrl(), ivProfileImage);
 		
+	}
+	
+	private class UserInformationResponseHandler extends JsonHttpResponseHandler {
+		@Override
+		public void onSuccess(JSONObject json) {
+				User u = User.fromJson(json);
+				getActionBar().setTitle("@"+ u.getScreenName());
+				populateProfileHeader(u);
+				
+				FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+				ft.replace(R.id.timeline_holder, UserTimelineFragment.newInstance(u.getScreenName()));
+				ft.commit();
+		}
 	}
 
 }
