@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.codepath.apps.basictwitter.models.Tweet;
 
 public class UserTimelineFragment extends TweetsListFragment {
+
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

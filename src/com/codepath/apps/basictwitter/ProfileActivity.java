@@ -19,10 +19,11 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		loadProfileInfo();
+		String user = getIntent().getStringExtra("user");
+		loadProfileInfo(user);
 	}
 
-	public void loadProfileInfo() {
+	public void loadProfileInfo(String user) {
 		TwitterApplication.getRestClient().getMyInfo(
 				new JsonHttpResponseHandler() {
 					@Override
