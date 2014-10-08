@@ -75,6 +75,8 @@ public class TimelineActivity extends FragmentActivity {
 	
 	public void onProfileView(MenuItem mi) {
 		Intent i = new Intent(this,ProfileActivity.class);
+		i.putExtra("screen_name", "ivang");
+		//i.putExtra("", )
 		startActivity(i);
 	}
 	

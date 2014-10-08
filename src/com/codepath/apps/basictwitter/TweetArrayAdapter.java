@@ -82,7 +82,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 		ImageLoader imageLoader = ImageLoader.getInstance();
 		imageLoader.displayImage(tweet.getUser().getProfileImageUrl(),
 				ivProfileImage);
-		ivProfileImage.setTag(tweet.getUser().getName());
+		ivProfileImage.setTag(tweet.getUser().getScreenName());
 		
 		
 		ivProfileImage.setOnClickListener(new OnClickListener() {
@@ -90,7 +90,7 @@ public class TweetArrayAdapter extends ArrayAdapter<Tweet> {
 			@Override
 			public void onClick(View v) {
 				Intent i = new Intent(getContext(),ProfileActivity.class);
-				i.putExtra("user", v.getTag().toString());
+				i.putExtra("screen_name", v.getTag().toString());
 				getContext().startActivity(i);
 			}
 			

@@ -4,11 +4,13 @@ import org.json.JSONObject;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.codepath.apps.basictwitter.fragments.UserTimelineFragment;
 import com.codepath.apps.basictwitter.models.User;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -19,12 +21,15 @@ public class ProfileActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_profile);
-		String user = getIntent().getStringExtra("user");
-		loadProfileInfo(user);
+		String screen_name = getIntent().getStringExtra("screen_name");
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		ft.replace(R.id.timeline_holder, UserTimelineFragment.newInstance(screen_name));
+		ft.commit();
+		//loadProfileInfo(screen_name);
 	}
-
-	public void loadProfileInfo(String user) {
-		TwitterApplication.getRestClient().getMyInfo(
+	
+	public void loadProfileInfo(String screen_name) {
+		TwitterApplication.getRestClient().getUserInfo(screen_name, 
 				new JsonHttpResponseHandler() {
 					@Override
 					public void onSuccess(JSONObject json) {
